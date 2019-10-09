@@ -49,8 +49,11 @@ func init() {
 func main() {
 	flag.Parse()
 
-	v, _ := voz.New(*namePtr)
+	v, err := voz.New(*namePtr)
 	defer v.Remove()
+	if err != nil {
+		panic(err)
+	}
 
 	urls, _ := readUrls(*inputPtr)
 	mail, err := restoreMailSettings()
@@ -58,6 +61,11 @@ func main() {
 		panic(err)
 	}
 
-	out, _ := v.Run(urls)
-	sendToKindle(mail, out)
+	out, err := v.Run(urls)
+	if err != nil {
+		panic(err)
+	}
+	if err = sendToKindle(mail, out); err != nil {
+		panic(err)
+	}
 }

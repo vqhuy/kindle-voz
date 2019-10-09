@@ -12,7 +12,7 @@ import (
 	gomail "gopkg.in/gomail.v2"
 )
 
-const subject = "Kindle-Manga"
+const subject = "Kindle-Voz"
 
 type Mail struct {
 	From     string
